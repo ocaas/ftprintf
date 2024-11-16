@@ -10,44 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
-void	ft_converse(va_list args, int i)
+int	ft_converse(int i, va_list args, int j)
 {
 	if (i == 'c')
-		ft_putchar_fd(va_arg(args, char), 1);
+		j = ft_putchar_fd(va_arg(args, int), 1, j);
 	else if (i == 's')
-		ft_pristrc(va_arg(args, char *), 1);
+		j = ft_pristrc(va_arg(args, char *), j);
 	else if (i == 'p')
-		ft_printp(va_arg(args, int), 1);
+		j = ft_printp(va_arg(args, void *), j);
 	else if (i == 'd' || i == 'i')
-		ft_putnbr_fd(va_arg(args, int), 1);
+		j = ft_putnbr_fd(va_arg(args, int), 1, j);
 	else if (i == 'u')
-		ft_printu(va_arg(args, unsigned int), 1);
+		j = ft_printu(va_arg(args, unsigned int), j);
 	else if (i == 'x')
-		ft_puthex(va_arg(args, unsigned int), 1);
+		j = ft_puthex(va_arg(args, unsigned int), j);
 	else if (i == 'X')
-		ft_puthex(va_arg(args, unsigned int), 1);
+		j = ft_puthex(va_arg(args, unsigned int), j);
 	else if (i == '%')
-		ft_putchar_fd('%', 1);
+		j = ft_putchar_fd('%', 1, j);
+	return (j);
 }
 
 int	ft_printf(char const *str, ...)
 {
 	int		i;
+	int 	j;
 	va_list	args;
 
 	va_start(args, str);
 	i = 0;
-	while (str[i])
+	j = 0;
+	while (str[i] != '\0')
 	{
 		if (str[i] == '%' ) //tengo que reviar lo que va despues del %, puede que no venga nada
 		{
 			i++;
-			ft_converse (str[i]);
+			j = ft_converse(str[i], args, j);
 		}
 		else
-			ft_putchar_fd(str[i], 1);
+			j = ft_putchar_fd(str[i], 1, j);
 		i++;
 	}
+	va_end(args);
+	return (j);
 }

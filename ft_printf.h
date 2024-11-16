@@ -10,22 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdarg.h>
 
-int		ft_pristrc(char *str);
-int		ft_printu(unsigned int n);
-int		ft_puthex(unsigned long long int n, char mod);
-int		ft_printp(void *p);
+int		ft_pristrc(char *str, int j);
+int		ft_printu(unsigned int n, int j);
+int		ft_puthex(unsigned long long int n, int j);
+int		ft_printp(void *p, int j);
 int		ft_printf(char const *str, ...);
-void	ft_converse(va_list args, int i);
-void	ft_putnbr_fd(int n, int fd);
-size_t	ft_strlen(const char *str);
-void	ft_putchar_fd(char c);
+int		ft_converse(int i, va_list args, int j);
+int		ft_putnbr_fd(int n, int fd, int j);
+int		ft_strlen(const char *str);
+int		ft_putchar_fd(char c, int fd, int j);
+int		ft_putstr_fd(char *s, int fd, int j);
 
 #endif

@@ -10,85 +10,57 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
-int	ft_pristrc(char *str)
+int	ft_pristrc(char *str, int j)
 {
 	int	i;
 
 	i = 0;
 	if (!str)
 	{
-		write (1, "(NULL)", 6);
-		return (6);
+		j = write (1, "(NULL)", 6);
+		return (j);
 	}
 	while (str[i] != '\0')
 	{
-		write (1, str[i], 1);
+		j += write(1, &str[i], 1);
 		i++;
 	}
-	return (i);
+	return (j);
 }
 
-int	ft_printu(unsigned int n)
+int	ft_printu(unsigned int n, int j)
 {
-	char	j;
-	int		i;
-
-	i = 0;
 	if (n > 9)
-		i += ft_printu (n / 10);
-	j = ft_printu (n % 10 + 48);
-	write (1, &j, 1)
-	i++;
-	return (i);
+		j += ft_printu(n / 10, j);
+	j = ft_putchar_fd((n % 10) + 48, 1, j);
+	return (j);
 }
 
-int	ft_puthex(unsigned long long int n, char mod)
+int	ft_puthex(unsigned long long int n, int j)
 {
-	int		i;
-	char	num;
+	if (n >= 16)
+		j = ft_puthex(n / 16, j);
+	if (n % 16 < 10)
+		j = ft_putchar_fd(n % 16 + '0', 1, j);
+	else
+		j = ft_putchar_fd(n % 16 + 'a' - 10, 1, j);
+	return (j);
 
-	i = 0;
-	if (n > 16)
-		i += ft_puthex(n / 16);
-	if (n < 9)
-		i += ft_puthex(n + 48, 1);
-	num = (n % 16);
-	if (n > 9)
-	{
-		if (mod == 'x')
-			ft_puthex(n + 55); //might have to assign to i (i += blabla)
-		else
-			ft_puthex(n + 87);
-	}
-	write (1, &num, 1);
-	return (i);
 }
 
-int	ft_printp(void *p)
+int	ft_printp(void *p, int j)
 {
-	int i;
 	unsigned long long	point;
 	
-	i = 0;
-		i + =write (1, &0x, 1);
-	if (!*p)
+	point = (unsigned long long)p;
+	if (point == 0)
 	{
-		write (1, &'(NIL)', 5);
-		return (5);
+		j += write(1,"(NIL)", 5);
+		return (j);
 	}
-	i += ft_printp(*p / 16);
-	i += ft_printp(*p % 16);
-	return (i);
+	j = ft_putstr_fd("0x", 1, j);
+	j = ft_puthex(point, j);
+	return (j);
 }
-
-
-	//instead of base 10 change to0 base 16 in putnbr.
-	//if its more than 9 it transforms into a letter 
-	// 'a' - 10 = 87
-/* 	if (n >= 10)
-	{
-		fd_putdex_fd (n / 16);
-		fd_putdex_fd (n % 16);
-	} */
