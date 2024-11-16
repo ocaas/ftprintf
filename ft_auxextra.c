@@ -38,7 +38,7 @@ size_t	ft_strlen(const char *str)
 	return (c);
 }
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(char c)
 {
-	write(fd, &c, 1);
+	write(1, &c, 1);
 }

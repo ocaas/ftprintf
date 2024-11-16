@@ -1,9 +1,10 @@
 CC = cc
 
-NAME = libftprintf
+NAME = libftprintf.a
 
-SRC = 
-
+SRC = ft_printf.c \
+		ft_printfaux.c \
+		ft_auxextra.c \
 
 CFLAGS = -Wall -Wextra -Werror
 
