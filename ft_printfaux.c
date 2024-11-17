@@ -19,7 +19,7 @@ int	ft_pristrc(char *str, int j)
 	i = 0;
 	if (!str)
 	{
-		j = write (1, "(NULL)", 6);
+		j += write (1, "(null)", 6);
 		return (j);
 	}
 	while (str[i] != '\0')
@@ -33,7 +33,7 @@ int	ft_pristrc(char *str, int j)
 int	ft_printu(unsigned int n, int j)
 {
 	if (n > 9)
-		j += ft_printu(n / 10, j);
+		j = ft_printu(n / 10, j);
 	j = ft_putchar_fd((n % 10) + 48, 1, j);
 	return (j);
 }
@@ -47,17 +47,27 @@ int	ft_puthex(unsigned long long int n, int j)
 	else
 		j = ft_putchar_fd(n % 16 + 'a' - 10, 1, j);
 	return (j);
+}
 
+int	ft_puthexcap(unsigned long long int n, int j)
+{
+	if (n >= 16)
+		j = ft_puthexcap(n / 16, j);
+	if (n % 16 < 10)
+		j = ft_putchar_fd(n % 16 + '0', 1, j);
+	else
+		j = ft_putchar_fd(n % 16 + 'A' - 10, 1, j);
+	return (j);
 }
 
 int	ft_printp(void *p, int j)
 {
 	unsigned long long	point;
-	
+
 	point = (unsigned long long)p;
 	if (point == 0)
 	{
-		j += write(1,"(NIL)", 5);
+		j += write (1, "(nil)", 5);
 		return (j);
 	}
 	j = ft_putstr_fd("0x", 1, j);

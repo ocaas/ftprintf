@@ -29,5 +29,6 @@ int		ft_putnbr_fd(int n, int fd, int j);
 int		ft_strlen(const char *str);
 int		ft_putchar_fd(char c, int fd, int j);
 int		ft_putstr_fd(char *s, int fd, int j);
+int		ft_puthexcap(unsigned long long int n, int j);
 
 #endif

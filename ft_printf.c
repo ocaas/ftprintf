@@ -27,7 +27,7 @@ int	ft_converse(int i, va_list args, int j)
 	else if (i == 'x')
 		j = ft_puthex(va_arg(args, unsigned int), j);
 	else if (i == 'X')
-		j = ft_puthex(va_arg(args, unsigned int), j);
+		j = ft_puthexcap(va_arg(args, unsigned int), j);
 	else if (i == '%')
 		j = ft_putchar_fd('%', 1, j);
 	return (j);
@@ -36,7 +36,7 @@ int	ft_converse(int i, va_list args, int j)
 int	ft_printf(char const *str, ...)
 {
 	int		i;
-	int 	j;
+	int		j;
 	va_list	args;
 
 	va_start(args, str);
@@ -44,7 +44,7 @@ int	ft_printf(char const *str, ...)
 	j = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '%' ) //tengo que reviar lo que va despues del %, puede que no venga nada
+		if (str[i] == '%' )
 		{
 			i++;
 			j = ft_converse(str[i], args, j);
